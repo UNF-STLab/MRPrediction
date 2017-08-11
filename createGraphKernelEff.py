@@ -279,20 +279,20 @@ def create_comma_class_label_file(in_file_name,comma_file_name):
 #create_comma_class_label_file('/s/bach/h/proj/saxs/upuleegk/Soot/inclusive_class_label','/s/bach/h/proj/saxs/upuleegk/Soot/graphKernelData/inclusive/inclusive_class_label_comma') 
 
 #set paramk to 0.5 to get the default behaviour 
-def create_kernel_matrix_add_path_length(class_file_name,km_file_name,path_len,lamda,paramk):
-	class_file=open(class_file_name,'r')
+def create_kernel_matrix_add_path_length(path_len,lamda,paramk):
+	class_file=open('/home/rahman/Documents/MRPred1/label','r')
 	dot_file_names=[]
 
 	for line in class_file:
-		fields=line.strip('\n').split(',')
+		fields=line.strip('\n').split(':')
 	        dot_file_names.append(fields[0])
 	class_file.close()
 	#dot file location of files that has idenstmts and goto
 	#dotFileLoc='/s/bach/h/proj/saxs/upuleegk/Soot/openSourceMethods/AllUsedMethods/AllUsedDotFiles'
 	#dot file location of files that has removed idenstmts and goto
-	dotFileLoc='/s/bach/h/proj/saxs/upuleegk/Soot/openSourceMethods/AllUsedMethods/allTrainingAndSaxsMutatedFuns'
+	dotFileLoc='/home/rahman/Documents/MRPred1/dotfiles'
 	computedValsDict={}
-	f=open(km_file_name,'w')
+	f=open('/home/rahman/Documents/MRPred1/output09.txt','w')
 	for i in range(0,len(dot_file_names)):
 		temp_str=str(dot_file_names[i])
 		for j in range(0,len(dot_file_names)):
@@ -330,8 +330,8 @@ def create_kernel_matrix_add_path_length(class_file_name,km_file_name,path_len,l
 		temp_str+='\n'
 		f.write(temp_str)	
 	f.close()
-	os.system("mailx -s \"File writing finished\" < /dev/null \"upuleegk@gmail.com\"")
-create_kernel_matrix_add_path_length(sys.argv[1],sys.argv[2],int(sys.argv[3]),float(sys.argv[4]),float(sys.argv[5]))
+	#os.system("mailx -s \"File writing finished\" < /dev/null \"upuleegk@gmail.com\"")
+create_kernel_matrix_add_path_length(10,0.9,0.5)
 
 def create_kernel_matrix_add_path_length_both_cfg_and_dd(class_file_name,km_file_name,path_len,lamda,paramk):
         class_file=open(class_file_name,'r')

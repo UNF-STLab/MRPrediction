@@ -1,4 +1,5 @@
 import networkx as nx
+import nx_pydot as pydot
 import sys
 import os
 import glob
@@ -181,7 +182,7 @@ def createClassLabeFileFromFilesInFolder(folder,classLabelFileName):
 
 #createClassLabeFileFromFilesInFolder("/s/bach/h/proj/saxs/upuleegk/Soot/openSourceMethods/AllUsedMethods/saxsMutatedFunctionsDotFiles","/s/bach/h/proj/saxs/upuleegk/Soot/classLabelFiles/mutatedSAXSFunClassLabels")
 def get_dd_cd_subgraphs(fileName):
-        pdg=nx.read_dot(fileName)
+        pdg=pydot.read_dot(fileName)
         #print pdg
         nodeLabels=nx.get_node_attributes(pdg,'label')
         #print nodeLabels

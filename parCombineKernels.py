@@ -1,31 +1,80 @@
 import numpy as np
+from sklearn import svm
+from sklearn.model_selection import GridSearchCV, KFold,cross_val_predict, cross_val_score, train_test_split
+from sklearn import metrics
+from sklearn.metrics import roc_auc_score
 import math
 import os
-import PyML
 import itertools
+from sklearn.metrics import confusion_matrix
 
-def readKMFromFile(fileName):
-	f = open(fileName, 'r')
-	km=np.zeros((100,100))
+def readKMFromFile():
+	f = open('/home/rahman/Documents/MRPred1/output03.txt', 'r')
+	km=np.zeros((62,62))
 	linecnt=0
 	ids=[]
 	for line in f:
 		fields=line.split(',')
-		print str(fields[0])
+		#print str(fields[0])
 		ids.append(str(fields[0]))
 		for i in range(1,len(fields)):
 			km[linecnt][i-1]=float(fields[i])
 		linecnt+=1
 	f.close()
+	print km
+	#print ids
 	return km,ids
+	
+a,b=readKMFromFile()
 
 def cosineNormKM(km):
-	kmNorm=np.zeros((100,100))
+	kmNorm=np.zeros((62,62))
 	for i in range(km.shape[0]):
 		for j in range(km.shape[1]):
 			kmNorm[i][j]= km[i][j]/math.sqrt(km[i][i]*km[j][j])   
-			
+	#print kmNorm		
 	return  kmNorm
+c=cosineNormKM(a)
+def mlpred(x,y):
+	mat=x
+	ids=y
+	print mat
+	
+	
+	
+	labels = []
+	with open('/home/rahman/Documents/MRPred1/labelsPermutation.txt', 'r') as f:
+		first_line = f.readline()
+		while first_line:
+			first_line = first_line.strip('\n')
+			labels.append(first_line)
+			first_line = f.readline()
+	labels = map(int, labels)
+	print labels
+	clf = svm.SVC(kernel='precomputed')
+	clf.fit(mat,labels)
+	outputpred=clf.predict(mat)
+	print outputpred
+	f=open('/home/rahman/Documents/MRPred1/outputper03.txt','w')
+	for item in outputpred:
+		f.write("%s\n" % str(item))
+
+	#f.write('\n'.join(str(outputpred)))
+	f.close()
+	print (clf.predict(mat))
+	print (clf.score(mat,labels))
+	print (cross_val_score(estimator=clf, X=mat, y=labels, cv=6))
+	score=cross_val_predict(estimator=clf, X=mat, y=labels, cv=6)
+	print (roc_auc_score(labels,score,None))
+	print (confusion_matrix(labels,score))
+
+	
+print a
+print b
+mlpred(a,b)	
+
+
+
 
 def computeResults(km,ids,labelFile):
         wstr=''         
@@ -107,7 +156,7 @@ def addAndSaveThreeKMs():
 	fileName='/s/bach/h/proj/saxs/upuleegk/Soot/graphletKernelData/mod_graphlet_km_size_3_4_5'
 	writeKMToFile(addedKM2,ids1,fileName)
 
-addAndSaveThreeKMs()
+#addAndSaveThreeKMs()
 """
 km1,ids1=readKMFromFile('/s/bach/h/proj/saxs/upuleegk/Soot/graphKernelData/OpenSourceMethodData/km_afterModifyingIfandAssLabels/CFGKMs/mod_km_cfg_1_10_0.5')
 km1=cosineNormKM(km1)
