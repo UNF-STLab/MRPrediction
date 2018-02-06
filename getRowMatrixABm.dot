@@ -1,0 +1,28 @@
+digraph "org.apache.commons.math3.linear.RealMatrix getRowMatrix(int)" {
+    label="org.apache.commons.math3.linear.RealMatrix getRowMatrix(int)";
+    node [shape=box];
+    "0" [style=filled,fillcolor=gray,label="r0 := @this",];
+    "1" [label="i0 := @parameter0",];
+    "0"->"1";
+    "2" [label="org.apache.commons.math3.linear.MatrixUtils.checkRowIndex(r0, i0)",];
+    "1"->"2";
+    "3" [label="i1 = r0.getColumnDimension()",];
+    "2"->"3";
+    "4" [label="r1 = r0.createMatrix(1, i1)",];
+    "3"->"4";
+    "5" [label="i2 = 0",];
+    "4"->"5";
+    "6" [label="label0: if i2 >= i1 goto label1",];
+    "5"->"6";
+    "7" [label="$d0 = r0.getEntry(i0, i2)",];
+    "6"->"7";
+    "11" [style=filled,fillcolor=lightgray,label="label1: return r1",];
+    "6"->"11";
+    "8" [label="r1.setEntry(0, i2, $d0)",];
+    "7"->"8";
+    "9" [label="i2 = i2 + 1",];
+    "8"->"9";
+    "10" [label="goto label0",];
+    "9"->"10";
+    "10"->"6";
+}

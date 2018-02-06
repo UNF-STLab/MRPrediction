@@ -1,0 +1,36 @@
+digraph "double getTrace()" {
+    label="double getTrace()";
+    node [shape=box];
+    "0" [style=filled,fillcolor=gray,label="r0 := @this",];
+    "1" [label="i0 = r0.getRowDimension()",];
+    "0"->"1";
+    "2" [label="i1 = r0.getColumnDimension()",];
+    "1"->"2";
+    "3" [label="if i0 == i1 goto label0",];
+    "2"->"3";
+    "4" [label="r2 = new org.apache.commons.math3.linear.NonSquareMatrixException",];
+    "3"->"4";
+    "8" [label="label0: d0 = 0.0",];
+    "3"->"8";
+    "5" [label="specialinvoke r2.<init>(i0, i1)",];
+    "4"->"5";
+    "6" [label="r3 = (java.lang.Throwable) r2",];
+    "5"->"6";
+    "7" [style=filled,fillcolor=lightgray,label="throw r3",];
+    "6"->"7";
+    "9" [label="i2 = 0",];
+    "8"->"9";
+    "10" [label="label1: if i2 >= i0 goto label2",];
+    "9"->"10";
+    "11" [label="$d1 = r0.getEntry(i2, i2)",];
+    "10"->"11";
+    "15" [style=filled,fillcolor=lightgray,label="label2: return d0",];
+    "10"->"15";
+    "12" [label="d0 = d0 + $d1",];
+    "11"->"12";
+    "13" [label="i2 = i2 + 1",];
+    "12"->"13";
+    "14" [label="goto label1",];
+    "13"->"14";
+    "14"->"10";
+}

@@ -1,0 +1,29 @@
+digraph "int getColumnDimension()" {
+    label="int getColumnDimension()";
+    node [shape=box];
+    "0" [style=filled,fillcolor=gray,label="r0 := @this",];
+    "1" [label="$r1 = r0.data",];
+    "0"->"1";
+    "2" [label="if $r1 == null goto label0",];
+    "1"->"2";
+    "3" [label="$r2 = r0.data",];
+    "2"->"3";
+    "6" [label="label0: $i0 = 0",];
+    "2"->"6";
+    "4" [label="$r3 = $r2[0]",];
+    "3"->"4";
+    "5" [label="if $r3 != null goto label1",];
+    "4"->"5";
+    "5"->"6";
+    "8" [label="label1: $r4 = r0.data",];
+    "5"->"8";
+    "7" [label="goto label2",];
+    "6"->"7";
+    "11" [style=filled,fillcolor=lightgray,label="label2: return $i0",];
+    "7"->"11";
+    "9" [label="$r5 = $r4[0]",];
+    "8"->"9";
+    "10" [label="$i0 = lengthof $r5",];
+    "9"->"10";
+    "10"->"11";
+}
