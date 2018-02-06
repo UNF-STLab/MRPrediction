@@ -1,0 +1,15 @@
+digraph "org.apache.commons.math3.linear.RealMatrix createMatrix(int,int)" {
+    label="org.apache.commons.math3.linear.RealMatrix createMatrix(int,int)";
+    node [shape=box];
+    "0" [style=filled,fillcolor=gray,label="r0 := @this",];
+    "1" [label="i0 := @parameter0",];
+    "0"->"1";
+    "2" [label="i1 := @parameter1",];
+    "1"->"2";
+    "3" [label="$r1 = new org.apache.commons.math3.linear.Array2DRowRealMatrix",];
+    "2"->"3";
+    "4" [label="specialinvoke $r1.<init>(i0, i1)",];
+    "3"->"4";
+    "5" [style=filled,fillcolor=lightgray,label="return $r1",];
+    "4"->"5";
+}
